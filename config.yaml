@@ -1,0 +1,34 @@
+input_number:
+  ledspeed:
+    name: Speed
+    initial: 0
+    min: 0
+    max: 255
+    step: 1
+  ledintensity:
+    name: LED Intensity
+    initial: 0
+    min: 0
+    max: 255
+    step: 1
+  ledbrightness:
+    name: LED Brightness
+    initial: 0
+    min: 0
+    max: 255
+    step: 1
+    
+    
+input_boolean:
+  preset_1:
+    name: TwinkleC9
+    icon: mdi:light
+  preset_2:
+    name: NoiseC9
+    icon: mdi:light
+  preset_3:
+    name: Pride
+    icon: mdi:light
+  preset_4:
+    name: XmasPuke
+    icon: mdi:light
