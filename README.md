@@ -5,14 +5,19 @@ https://imgur.com/lLM5PuZ
 
 This is my way of controlling additional features of WLED via the HomeAssistant frontend (lovelace).  Theres probably much more attractive ways to accomplish this, but this is what I've come up with.  I am by no means a HA / LoveLace / programming veteran of any kind, this is just what I've mustered together to accomplish what I needed.  I don't use the MQTT discovery at all, but might to be able to set a solid color.
 
-**Prerequisites:**
+## **Prerequisites:**
 
-**WLED** - you need WLED flashed to an ESP board of your choice obviously
-**HomeAssistant** - I run Hass.io for the ease of add-ons and backups
-**MQTT** - You need an MQTT broker set up, using Hass.io there is a simple add on broker
-**NodeRed** - Again, using Hass.io there is an easy to install NodeRed add-on
+**WLED** - you need WLED flashed to an ESP board of your choice obviously.
 
-**General Usage / Setup:**
+**HomeAssistant** - I run Hass.io for the ease of add-ons and backups.
+
+**MQTT** - You need an MQTT broker set up, using Hass.io there is a simple add on broker.
+
+**NodeRed** - Again, using Hass.io there is an easy to install NodeRed add-on.
+
+
+
+## **General Usage / Setup:**
 
 Again, there are probably easier / cleaner ways to accomplish this but this is what I've come up with.
 
