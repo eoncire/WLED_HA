@@ -80,6 +80,10 @@ https://imgur.com/M3WrHGG
 
 
 
+### HomeAssistant
+
+You have to add the input_sliders and input_booleans to your config.yaml.  You can copy / paste that code if you would like or just add to existing.  That's pretty straight forward if you have any HA experience.  The config in lovelace is pretty straight forward for those.  I have an entity card with the sliders.  The push buttons for effects are an Entity Button card, single item per card.  You just pick the input_boolean number you want and make sure to use the correct one when setting up NR.  That's really the easiest part.  Again, probably a better way, blah blah blah but this wors.
+
 
 
 
