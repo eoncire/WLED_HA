@@ -1,7 +1,7 @@
 # WLED_HA
 WLED basic integration with HomeAssistant
 
-!(https://imgur.com/lLM5PuZ.jpg)
+https://imgur.com/lLM5PuZ
 
 This is my way of controlling additional features of WLED via the HomeAssistant frontend (lovelace).  Theres probably much more attractive ways to accomplish this, but this is what I've come up with.  I am by no means a HA / LoveLace / programming veteran of any kind, this is just what I've mustered together to accomplish what I needed.  I don't use the MQTT discovery at all, but might to be able to set a solid color.
 
@@ -51,4 +51,22 @@ This will take our current payload of a number and insert it in the code where i
 Lastly we want to send that speed data payload which is now properly formatted to WLED to actually change the speed.  Pick up a **MQTT Out** node and drop it in the flow with a topic of wled/d1/api  Connect the Template node to it, Deploy changes and it should be set up.  
 
 That same outline is done for brightness as well as effect intensity.  Dummy slider in config with a name of whatver you want, event state node to get that slider data, template node to change it to the CORRECT API syntax, MQTT Out to publish.
+
+This is what that section of my flow looks like.  Event state (the input) node on the left, template node doing it's magic in the middle, MQTT out (the output) node on the right, along with the super helpful debug node.
+
+https://imgur.com/7RkPNZK
+
+**Input Boolean**
+
+**Input Booleans** are used as a dummy button to pick a preset which is saved in WLED.  Note here, if you have to set up a new WLED board in the event of frying one or whatever you WILL need to recreate the presets in WLED.  I don't have a way around that yet, maybe Aircookie can have an export preset option in the future, wink wink.  We use the same event: state node to pull in the data.  This is a portion of my code where there's probably a much more streamline way to do it but this works and I'm not that smart.  An event: state node is inserted for every preset / input_boolean we want to control / use.  I just made 4 nice presets for this proof of concept, TwinkleC9 (Twinklefox effect w/ C9 color pallete), NoiseC9 (Noise3 w/ C9 color), Pride (Pride2015 effect), and XmasPuke (Xmas effect).  My input_booleans are just called preset_1, preset_2, etc in my config.yaml.  You can name them whatever you want as long as it's unique to HA.  NodeRed reads the state of the input boolean, and upon ANY change (important) it'll send a payload down the line.  We use the template node again to format our payload to moustache template, and set the proper code with it.  For this we reference the HTTP API section in the documentation again (nice docs Aircookie, much more organized than this wall of text), and see that presets are called with PL=ourpresetnumber.  I did 4 presets for this demo, so i have 4 nodes set up in this flow.  Each template node calls a different number, PL=1, PL=2, and so on.
+
+https://imgur.com/XPxgfOC
+
+Here is an overview of the flow.
+
+https://imgur.com/XoRm4CW
+
+
+
+
 
