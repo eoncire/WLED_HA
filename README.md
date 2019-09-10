@@ -30,6 +30,16 @@ Again, there are probably easier / cleaner ways to accomplish this but this is w
 **NodeRed** is where all of the magic happens really, and it's a mess, but it works.  I'll break it up into sections.  But first a NodeRed overview becuase again I'm sure there will be some NodeRed virgins.  NodeRed has input, action, and output nodes at its most simplest form.  A flow is a page in NR where we drag and drop stuff, you look at the flow from left to right for the most part.  When using the NodeRed add-on for Hass.io it comes with a set of HA specific nodes that will pull data from HA entities (switch status, light vaules, and of course our input sliders and input booleans).  Then we take that data (called a payload in NR) and do something to it like modify its formatting or add additional info into the payload so that WLED can understand it.  Lastly, we output it by publishing a MQTT message to our wled/d1/api topic which WLED is subscribed to.
 
 **Input Slider** data is pulled into NR by an "events: state" node.  Anytime the entity which we pick in that nodes settings is chagned it'll pass it down the string.  Here is my events: state node for the speed.
+
 https://imgur.com/kZRdEHS
 
+Again if you're using the NR add-on for Hass.io it should automatically connect to your HA server and when you start to type in the name of the entity it should autopopulate and search by entity name.  I called this input slider ledspeed in my config.yaml.  Now any time that slider is changed in the HA frontend it will pass that data along in this flow.  What we want to do with that data is convert it to the proper formatting so that we can tell WLED to adjust the effect speed.  Looking at the HTTP API documentation it says that is done by calling SX=123.  What we need to do is use a **Template** node to modify the payload.  Remember, the payload is just the NR term for the data we're working with.  The data from our input_slider is just a number.  We need it to be SX=thatnumber.  Using a template node like the image below will change the template of the data from a number to mustache template.
+
+https://imgur.com/dZvjMNF
+
+This will take our current payload of a number and insert it in the code where it says payload in orange.  The payload after this node will then be SX=123 That can be connected to a debug node to double check that everything is correct. Debug node is your friend.
+
+Lastly we want to send that speed data payload which is now properly formatted to WLED to actually change the speed.  Pick up a **MQTT Out** node and drop it in the flow with a topic of wled/d1/api  Connect the Template node to it, Deploy changes and it should be set up.  
+
+That same outline is done for brightness as well as effect intensity.  Dummy slider in config with a name of whatver you want, event state node to get that slider data, template node to change it to the CORRECT API syntax, MQTT Out to publish.
 
