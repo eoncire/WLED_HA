@@ -62,9 +62,25 @@ https://imgur.com/7RkPNZK
 
 https://imgur.com/XPxgfOC
 
-Here is an overview of the flow.
+Here is an overview of the flow.  The input slider stuff at the top, and preset stuff at the bottom.  The "2" and "4" nodes there are another magical node call **Inject** node.  They allow you to, wait for it, inject a payload into the flow.  I was testing this setup before I had the HA side figured out and needed to send the number 2 and 4 down the line to make sure I could have WLED call presets via MQTT.  Spoiler alert, it worked.
 
 https://imgur.com/XoRm4CW
+
+Lastly but certainly not leastly is making the sliders in HA reflect changes to the settings done elsewhere like the webui or app for WLED.  We use the **MQTT in** node to pull all of the data that WLED pukes out to wled/d1/v into our flow.  We only need a couple of the bits of the data so we have to cherry pick it.  That is done with the XML function node.  I'm going to get this wrong I'm sure becuase again, I'm not that smart, but the data posted to the wled/d1/v topic is formatted in javascript i think.  We want it in XML so we can pick through it, this node does just that.  Then we take the XML payload which we can make sense of and is organized and pick out the variables we want using the **Change** node as shown below.
+
+https://imgur.com/Fc7r0ZU
+
+We look through the nicely formatted XML data for the line that says payload.vs.sx.[0].  That is what WLED published as it's current effect speed.  We're just stripping the extra info out so we have only a number as our payload here, sort of the opposite of what we did with the template node earlier.  Now we can connect that node to a call service node with our input_slider that we are using for effect speed.  Again, any changes made to WLED and it'll publish ALL OF THE SETTINGS to wled/d1/v.  We cant make sense of the javascript so we change it to XML formatting, then we look for the line that is has our speed number in it, then we strip all of the BS out and are left with just a number.  NodeRed then calls a HA service to set that slider to that value.  Like i said at the top, it aint pretty, but it works.
+
+https://imgur.com/0BEtKjH
+
+And here is the overview for the part of the flow that handles this.  MQTT input node on the left getting the javascript data that WLED posted, XML node next to change formatting so we can make sense of it, then change node to pull out the data we want, then HA call to set the slider to that data.
+
+https://imgur.com/M3WrHGG
+
+
+
+
 
 
 
