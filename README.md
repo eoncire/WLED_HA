@@ -89,7 +89,11 @@ https://imgur.com/M3WrHGG
 
 ### HomeAssistant
 
-You have to add the input_sliders and input_booleans to your config.yaml.  You can copy / paste that code if you would like or just add to existing.  That's pretty straight forward if you have any HA experience.  The config in lovelace is pretty straight forward for those.  I have an entity card with the sliders.  The push buttons for effects are an Entity Button card, single item per card.  You just pick the input_boolean number you want and make sure to use the correct one when setting up NR.  That's really the easiest part.  Again, probably a better way, blah blah blah but this wors.
+You have to add the input_sliders and input_booleans to your config.yaml.  You can copy / paste that code if you would like or just add to existing.  That's pretty straight forward if you have any HA experience.  The config in lovelace is pretty straight forward for those.  I have an entity card with the sliders.  The push buttons for effects are an Entity Button card, single item per card.  You just pick the input_boolean number you want and make sure to use the correct one when setting up NR.  That's really the easiest part.  Again, probably a better way, blah blah blah but this works.
+
+Out of the box if you followed this guide you will have input sliders and some buttons in your "Unused Entities" in HomeAssistant.  BUUUUUT, those buttons wont do anything.  All they do is tell WLED to apply a preset number (1-4).  YOU have to go into WLED and make your own presets.  I cant do that for you, although I could hard-code some into NodeRed by having it send an MQTT message w/ FX, SX, SI and BR values but that sounds like a lot of work....
+
+Enjoy!  Find me on the WLED discord server @e_town, send me a DM or mention if you're having issues.
 
 
 
