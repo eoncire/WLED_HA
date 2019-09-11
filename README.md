@@ -15,7 +15,7 @@ This is my way of controlling additional features of WLED via the HomeAssistant 
 
 **MQTT** - You need an MQTT broker set up, using Hass.io there is a simple add on broker.
 
-**NodeRed** - Again, using Hass.io there is an easy to install NodeRed add-on.
+**NodeRed** - Again, using Hass.io there is an easy to install NodeRed add-on.  You have to add you MQTT broker info to NodeRed.
 
 
 
@@ -38,7 +38,9 @@ Again, there are probably easier / cleaner ways to accomplish this but this is w
 
 ### NodeRed
 
-**NodeRed** is where all of the magic happens really, and it's a mess, but it works.  I'll break it up into sections.  But first a NodeRed overview becuase again I'm sure there will be some NodeRed virgins.  NodeRed has input, action, and output nodes at its most simplest form.  A flow is a page in NR where we drag and drop stuff, you look at the flow from left to right for the most part.  When using the NodeRed add-on for Hass.io it comes with a set of HA specific nodes that will pull data from HA entities (switch status, light vaules, and of course our input sliders and input booleans).  Then we take that data (called a payload in NR) and do something to it like modify its formatting or add additional info into the payload so that WLED can understand it.  Lastly, we output it by publishing a MQTT message to our wled/d1/api topic which WLED is subscribed to.
+**NodeRed** is where all of the magic happens really, and it's a mess, but it works.  After you import the flow to your NodeRed add-on you have to make a couple of changes so NodeRed connects to your MQTT broker via its IP address and change the device topic in two of the MQTT nodes so that it reads and posts to the device topic you set up in WLED.  I'll break it up into sections.  But first a NodeRed overview becuase again I'm sure there will be some NodeRed virgins.  NodeRed has input, action, and output nodes at its most simplest form.  A flow is a page in NR where we drag and drop stuff, you look at the flow from left to right for the most part.  When using the NodeRed add-on for Hass.io it comes with a set of HA specific nodes that will pull data from HA entities (switch status, light vaules, and of course our input sliders and input booleans).  Then we take that data (called a payload in NR) and do something to it like modify its formatting or add additional info into the payload so that WLED can understand it.  Lastly, we output it by publishing a MQTT message to our wled/d1/api topic which WLED is subscribed to.
+
+First step is to add your MQTT broker info to NodeRed so it can read and publish to the broker.  After you import the flow open either the **MQTT in** or **MQTT out** node.  Click the pencil icon next to the server name.  Enter the IP of your MQTT broker.  I have my MQTT broker set to allow anomymous connections so I don't use the security tab, that is up to you and your personal configuration.
 
 **Input Slider** data is pulled into NR by an "events: state" node.  Anytime the entity which we pick in that nodes settings is chagned it'll pass it down the string.  Here is my events: state node for the speed.
 
